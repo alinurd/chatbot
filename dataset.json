@@ -1,0 +1,159 @@
+{
+  "intents": [
+    {
+      "tag": "salam",
+      "patterns": ["Halo", "Selamat pagi", "Hai", "Assalamualaikum", "Hai bot", "Halo bot", "Selamat siang", "Selamat malam"],
+      "responses": ["Halo! Selamat datang di Bengkel Motor Sejahtera. Ada yang bisa saya bantu?"]
+    },
+    {
+      "tag": "jam_operasional",
+      "patterns": ["Jam berapa buka?", "Kapan bengkel buka?", "Buka sampai jam berapa?", "Jam operasional bengkel?", "Buka hari apa saja?", "Libur hari apa?"],
+      "responses": ["Kami buka setiap hari dari jam 08.00 - 20.00 WIB, termasuk Sabtu dan Minggu."]
+    },
+    {
+      "tag": "lokasi",
+      "patterns": ["Dimana lokasi bengkel?", "Alamatnya dimana?", "Bisa kasih alamat lengkap?", "Dimana alamat bengkel?", "Lokasi dimana?", "Bisa share lokasi?"],
+      "responses": ["Lokasi kami di Jl. Raya Motor No. 123, Jakarta Selatan. Dekat dengan Stasiun Sudirman."]
+    },
+    {
+      "tag": "service_ringan",
+      "patterns": ["Service ringan apa saja?", "Apa saja yang termasuk service ringan?", "Biaya service ringan?", "Perawatan rutin motor?", "Service kecil?"],
+      "responses": ["Service ringan termasuk ganti oli, cek rem, cek mesin, dan cek kelistrikan. Biaya mulai dari Rp 80.000."]
+    },
+    {
+      "tag": "service_berat",
+      "patterns": ["Service berat apa saja?", "Turun mesin termasuk apa?", "Biaya service berat?", "Overhaul mesin?", "Perbaikan besar?"],
+      "responses": ["Service berat termasuk turun mesin, overhaul, ganti piston, dan perbaikan transmisi. Biaya mulai dari Rp 500.000."]
+    },
+    {
+      "tag": "ganti_oli",
+      "patterns": ["Ganti oli berapa?", "Oli motor apa saja yang tersedia?", "Harga ganti oli?", "Oli full sintetik?", "Oli terbaik untuk motor?"],
+      "responses": ["Kami menyediakan oli merek Shell, Castrol, Yamalube, dan Motul. Harga mulai dari Rp 60.000 - Rp 150.000 tergantung jenis."]
+    },
+    {
+      "tag": "spare_part",
+      "patterns": ["Jual spare part apa?", "Ada ban motor?", "Stok kampas rem?", "Jual busi?", "Suku cadang ori?"],
+      "responses": ["Kami jual ban, kampas rem, rantai, busi, filter udara, dan spare part lainnya dengan harga kompetitif. Semua sparepart asli dan berkualitas."]
+    },
+    {
+      "tag": "booking_service",
+      "patterns": ["Bisa booking service?", "Cara booking?", "Mau daftar service", "Reservasi bengkel", "Antrian service"],
+      "responses": ["Anda bisa booking via WhatsApp ke 0812-3456-7890 atau langsung datang ke bengkel. Kami sarankan booking terlebih dahulu untuk menghindari antrian."]
+    },
+    {
+      "tag": "harga_ban",
+      "patterns": ["Harga ban motor?", "Ban tubeless ukuran 80/90?", "Merk ban yang tersedia?", "Ban dalam harga?", "Ukuran ban matic?"],
+      "responses": ["Harga ban mulai dari Rp 200.000 - Rp 500.000. Tersedia merk Dunlop, Bridgestone, IRC, dan Michelin."]
+    },
+    {
+      "tag": "servis_karburator",
+      "patterns": ["Servis karburator berapa?", "Cuci karburator?", "Tune up karburator?", "Bersihkan karburator", "Setel karburator"],
+      "responses": ["Servis karburator mulai dari Rp 100.000 termasuk cuci, tuning, dan penggantian komponen jika diperlukan."]
+    },
+    {
+      "tag": "ganti_rantai",
+      "patterns": ["Ganti rantai berapa?", "Rantai dan sproket set?", "Harga set rantai?", "Rantai O-ring?", "Rantai racing?"],
+      "responses": ["Ganti rantai + sproket set mulai dari Rp 350.000 - Rp 800.000 tergantung tipe motor dan merk."]
+    },
+    {
+      "tag": "cara_bayar",
+      "patterns": ["Bisa bayar pakai apa?", "Terima kartu kredit?", "Bisa transfer bank?", "QRIS diterima?", "Bayar cashless?"],
+      "responses": ["Kami terima pembayaran tunai, debit, kartu kredit, GoPay, OVO, ShopeePay, Dana, dan LinkAja."]
+    },
+    {
+      "tag": "garansi",
+      "patterns": ["Ada garansi untuk service?", "Garansi spare part berapa lama?", "Service bergaransi?", "Jaminan service?", "Garansi berapa bulan?"],
+      "responses": ["Service kami bergaransi 30 hari. Spare part baru bergaransi 6 bulan untuk yang asli, 3 bulan untuk aftermarket."]
+    },
+    {
+      "tag": "estimasi_waktu",
+      "patterns": ["Service berapa lama?", "Berapa jam selesai service ringan?", "Bisa cepat?", "Hari ini selesai?", "Darurat bisa cepat?"],
+      "responses": ["Service ringan sekitar 1-2 jam, service berat bisa 1-3 hari tergantung kerusakan dan ketersediaan sparepart."]
+    },
+    {
+      "tag": "motor_mati",
+      "patterns": ["Motor tiba-tiba mati", "Mesin tidak bisa starter", "Motor mogok di jalan", "Starter tidak nyala", "Mesin mati total"],
+      "responses": ["Kami menyediakan layanan derek darurat 24 jam. Hubungi 0812-3456-7890 untuk bantuan cepat. Bisa jadi masalah aki, busi, atau sistem pengapian."]
+    },
+    {
+      "tag": "tune_up",
+      "patterns": ["Tune up mesin berapa?", "Setel mesin biar halus", "Service tuning motor", "Service komplit mesin", "Setel karburator dan pengapian"],
+      "responses": ["Tune up mesin lengkap mulai dari Rp 120.000 termasuk setel karburator, pengapian, cek kompresi, dan cek semua sistem mesin."]
+    },
+    {
+      "tag": "ganti_aki",
+      "patterns": ["Ganti aki motor berapa?", "Aki kering vs basah", "Harga aki GS?", "Aki maintenance free?", "Aki NS?"],
+      "responses": ["Ganti aki mulai dari Rp 150.000 - Rp 350.000. Tersedia aki kering (maintenance free) dan basah merek GS, Yuasa, dan NS."]
+    },
+    {
+      "tag": "layanan_derek",
+      "patterns": ["Ada layanan derek?", "Motor mogok bisa dijemput?", "Nomor darurat bengkel?", "Tarik motor mogok", "Derek 24 jam?"],
+      "responses": ["Ya, layanan derek tersedia 24 jam dengan biaya mulai Rp 100.000 tergantung jarak. Hubungi 0812-3456-7890 untuk emergency."]
+    },
+    {
+      "tag": "kontak",
+      "patterns": ["Nomor telepon bengkel?", "Bisa chat WhatsApp?", "Email bengkel?", "Call center bengkel", "Kontak darurat"],
+      "responses": ["WhatsApp: 0812-3456-7890, Telepon: (021) 12345678, Email: bengkelsejahtera@gmail.com, Instagram: @bengkelsejahtera"]
+    },
+    {
+      "tag": "terimakasih",
+      "patterns": ["Terima kasih", "Makasih", "Sip thanks", "Ok thank you", "Siap makasih"],
+      "responses": ["Sama-sama! Semoga motor Anda selalu lancar. Ada lagi yang bisa dibantu?"]
+    },
+    {
+      "tag": "promo",
+      "patterns": ["Ada promo?", "Diskon service?", "Harga spesial?", "Promo bulan ini", "Cashback?"],
+      "responses": ["Promo bulan ini: Diskon 20% untuk ganti oli pertama, gratis cek mesin untuk motor >5 tahun, dan cashback 10% untuk service berat."]
+    },
+    {
+      "tag": "sparepart_asli",
+      "patterns": ["Sparepart ori honda?", "Suku cadang yamaha asli?", "Sparepart genuine?", "Original atau aftermarket?", "Merk apa yang dijual?"],
+      "responses": ["Kami menyediakan sparepart asli dari Honda, Yamaha, Suzuki, Kawasaki, dan merk terpercaya lainnya. Juga tersedia aftermarket berkualitas."]
+    },
+    {
+      "tag": "biaya_perbaikan",
+      "patterns": ["Biaya perbaikan rem?", "Service rem berapa?", "Ganti kampas rem depan?", "Rem blong biaya?", "Perbaikan sistem rem"],
+      "responses": ["Biaya perbaikan rem mulai dari Rp 150.000 termasuk ganti kampas rem dan service kaliper. Tergantung tipe motor dan tingkat kerusakan."]
+    },
+    {
+      "tag": "ganti_kampas_rem",
+      "patterns": ["Ganti kampas rem berapa?", "Harga kampas rem depan belakang", "Kampas rem ori", "Rem bunyi keras", "Kampas rem aus"],
+      "responses": ["Ganti kampas rem depan Rp 80.000, belakang Rp 70.000 (harga belum termasuk jasa). Pakai kampas rem original merk terkenal."]
+    },
+    {
+      "tag": "service_lampu",
+      "patterns": ["Lampu motor mati", "Ganti lampu depan berapa?", "Lampu sein tidak nyala", "Perbaikan sistem lampu", "Lampu redup"],
+      "responses": ["Service lampu mulai dari Rp 50.000. Ganti lampu halogen Rp 25.000, LED Rp 75.000. Kami juga perbaiki kabel dan saklar."]
+    },
+    {
+      "tag": "ganti_ban_dalam",
+      "patterns": ["Ganti ban dalam berapa?", "Ban dalam bocor", "Tambah ban dalam", "Ukuran ban dalam", "Ban dalam tubeless?"],
+      "responses": ["Ganti ban dalam mulai dari Rp 40.000 - Rp 75.000 tergantung ukuran. Untuk tubeless, kami sediakan sealant khusus."]
+    },
+    {
+      "tag": "service_aki",
+      "patterns": ["Aki tekor", "Isi aki basah", "Service aki tekor", "Aki drop", "Cek kondisi aki"],
+      "responses": ["Service aki: isi air aki Rp 15.000, cek voltase gratis, charge aki Rp 25.000. Jika aki sudah soak, disarankan ganti baru."]
+    },
+    {
+      "tag": "ganti_velg",
+      "patterns": ["Ganti velg motor", "Velg bengkok", "Perbaikan velg", "Straighten velg", "Velg racing"],
+      "responses": ["Perbaikan velg bengkok mulai Rp 100.000. Ganti velg baru mulai Rp 300.000 - Rp 1.500.000 tergantung merk dan tipe."]
+    },
+    {
+      "tag": "service_rantai",
+      "patterns": ["Rantai bunyi", "Setel rantai", "Lumas rantai", "Rantai kendor", "Perawatan rantai"],
+      "responses": ["Service rantai: setel kekencangan Rp 20.000, lumas rantai Rp 15.000, bersihkan rantai Rp 25.000."]
+    },
+    {
+      "tag": "ganti_busi",
+      "patterns": ["Ganti busi berapa?", "Busi motor macet", "Busi ngelitik", "Busi racing", "Merk busi yang bagus"],
+      "responses": ["Ganti busi standar Rp 15.000 - Rp 25.000, busi iridium Rp 60.000 - Rp 120.000. Merk: NGK, Denso, Champion."]
+    },
+    {
+      "tag": "service_knalpot",
+      "patterns": ["Knalpot bocor", "Ganti packing knalpot", "Service knalpot bising", "Knalpot rusak", "Perbaikan knalpot"],
+      "responses": ["Service knalpot: ganti packing Rp 30.000, las bocor Rp 50.000, perbaikan sambungan Rp 75.000. Jual knalpot racing juga."]
+    }
+  ]
+}
