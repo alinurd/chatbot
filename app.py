@@ -176,7 +176,7 @@ def get_intents():
         return jsonify({
             'success': False,
             'error': str(e)
-        }), 500
+        }), 14005
 
 @app.route('/test', methods=['GET'])
 def test_chat():
@@ -221,7 +221,7 @@ def test_chat():
     })
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 14005))
     print(f"🚀 Starting Flask API on port {port}")
     print(f"🔗 Local URL: http://localhost:{port}")
     print(f"🌐 Health check: http://localhost:{port}/health")

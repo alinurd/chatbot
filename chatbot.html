@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bengkel Motor Ali (BMA) - Layanan Profesional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        :root {
+            --primary-blue: #1a3a8f;
+            --secondary-blue: #2a5bd7;
+            --accent-orange: #ff9800;
+            --accent-red: #ff5722;
+            --light-bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --success: #4CAF50;
+            --error: #f44336;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 15px;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
+        }
+        
+        .logo-icon {
+            background-color: var(--accent-orange);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: var(--transition);
+        }
+        
+        .logo:hover .logo-icon {
+            transform: rotate(15deg) scale(1.1);
+        }
+        
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo-text p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        nav a i {
+            font-size: 14px;
+        }
+        
+        nav a:hover {
+            color: var(--accent-orange);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-red));
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 5px;
+        }
+        
+        .mobile-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 80px;
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), 
+                        url('https://images.unsplash.com/photo-1603575448878-868a20723f5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(26, 58, 143, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-text h2 {
+            font-size: 42px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        .hero-text p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: var(--text-light);
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+        
+        .hero-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 40px;
+            animation: slideUp 0.8s ease-out 0.4s both;
+        }
+        
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--card-bg);
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .highlight-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .highlight-icon {
+            color: var(--accent-orange);
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 152, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-image {
+            text-align: center;
+            animation: slideInRight 0.8s ease-out 0.6s both;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: var(--transition);
+        }
+        
+        .hero-image img:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: var(--card-bg);
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-red));
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 16px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 35px 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .service-icon {
+            background: linear-gradient(135deg, rgba(26, 58, 143, 0.1), rgba(42, 91, 215, 0.1));
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--primary-blue);
+            font-size: 32px;
+            transition: var(--transition);
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+        }
+        
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
+        
+        .service-card p {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+        
+        /* CTA Button */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(to right, var(--accent-orange), var(--accent-red));
+            color: white;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--accent-red), var(--accent-orange));
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+        
+        .cta-button:hover::before {
+            left: 0;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
+        }
+        
+        /* Chatbot Container */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .chatbot-toggle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 5px 20px rgba(26, 58, 143, 0.3);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chatbot-toggle::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-red) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .chatbot-toggle:hover::after {
+            opacity: 1;
+        }
+        
+        .chatbot-toggle:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(26, 58, 143, 0.4);
+        }
+        
+        .chatbot-toggle i {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .chatbot-toggle .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent-red);
+            color: white;
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+        
+        .chatbot-window {
+            position: absolute;
+            bottom: 90px;
+            right: 0;
+            width: 380px;
+            height: 550px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .chatbot-window.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+        
+        .chatbot-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-red) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        
+        .chatbot-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .chatbot-header p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .chatbot-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chatbot-close:hover {
+            transform: rotate(90deg);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .chatbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chatbot-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .chatbot-messages::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 10px;
+        }
+        
+        .message {
+            display: flex;
+            animation: messageAppear 0.3s ease-out;
+        }
+        
+        .bot-message {
+            justify-content: flex-start;
+        }
+        
+        .user-message {
+            justify-content: flex-end;
+        }
+        
+        .message-content {
+            max-width: 80%;
+            padding: 14px 20px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.5;
+            position: relative;
+            word-wrap: break-word;
+        }
+        
+        .bot-message .message-content {
+            background-color: white;
+            border-top-left-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            color: var(--text-dark);
+        }
+        
+        .user-message .message-content {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            border-top-right-radius: 5px;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 12px 18px;
+            background: white;
+            border-radius: 18px;
+            width: fit-content;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #ccc;
+            animation: typing 1.5s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                background-color: #ccc;
+            }
+            30% {
+                transform: translateY(-10px);
+                background-color: #888;
+            }
+        }
+        
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .chatbot-input {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+            background-color: white;
+        }
+        
+        .chatbot-input input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            outline: none;
+            font-size: 14px;
+            transition: var(--transition);
+            background: #f8f9fa;
+        }
+        
+        .chatbot-input input:focus {
+            border-color: var(--primary-blue);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+        }
+        
+        .chatbot-input button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+        
+        .chatbot-input button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .chatbot-input button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .quick-action-btn {
+            background-color: #e8f0ff;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 12px;
+            color: var(--primary-blue);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .quick-action-btn:hover {
+            background-color: #d4e2ff;
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+        
+        .quick-action-btn i {
+            font-size: 10px;
+        }
+        
+        .confidence-badge {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 8px;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .confidence-bar {
+            flex: 1;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), #8BC34A);
+            border-radius: 2px;
+            transition: width 1s ease;
+        }
+        
+        /* Contact & Footer */
+        .contact {
+            padding: 100px 0;
+            background-color: var(--light-bg);
+            position: relative;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: var(--primary-blue);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .contact-item:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(26, 58, 143, 0.1), rgba(42, 91, 215, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .contact-item h4 {
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .contact-item p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .map-container {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .map-container h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(26, 58, 143, 0.1), rgba(42, 91, 215, 0.1));
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            transition: var(--transition);
+        }
+        
+        .map-placeholder:hover {
+            transform: scale(1.02);
+        }
+        
+        .map-placeholder i {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent-orange);
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-orange);
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* API Status Indicator */
+        .api-status {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            font-size: 13px;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            opacity: 0.9;
+            transform: translateX(10px);
+        }
+        
+        .api-status:hover {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .status-dot::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-connected {
+            background-color: var(--success);
+        }
+        
+        .status-connected::after {
+            background-color: var(--success);
+        }
+        
+        .status-disconnected {
+            background-color: var(--error);
+        }
+        
+        .status-disconnected::after {
+            background-color: var(--error);
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.2;
+                transform: scale(1.5);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .stat-item {
+            padding: 30px;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-red) 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 100%;
+                padding: 0 30px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+            
+            .hero-highlights {
+                justify-content: center;
+            }
+            
+            .hero-text h2 {
+                font-size: 36px;
+            }
+            
+            .api-status {
+                top: 80px;
+                right: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 80px 0 60px;
+                background-attachment: scroll;
+            }
+            
+            .hero-text h2 {
+                font-size: 32px;
+            }
+            
+            .hero-text p {
+                font-size: 16px;
+            }
+            
+            .section-title h2 {
+                font-size: 32px;
+            }
+            
+            .chatbot-window {
+                width: calc(100vw - 40px);
+                right: 10px;
+                bottom: 100px;
+                height: 500px;
+            }
+            
+            .chatbot-container {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .chatbot-toggle {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+            
+            .api-status {
+                top: 70px;
+                right: 15px;
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+            
+            .back-to-top {
+                bottom: 90px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero-text h2 {
+                font-size: 28px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+            
+            .service-card {
+                padding: 25px 20px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+            }
+            
+            .chatbot-window {
+                width: calc(100vw - 20px);
+                right: 5px;
+                height: 450px;
+            }
+            
+            .chatbot-input input {
+                padding: 12px 15px;
+                font-size: 13px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .api-status {
+                top: 60px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            
+            .logo-text h1 {
+                font-size: 20px;
+            }
+            
+            .logo-text p {
+                font-size: 12px;
+            }
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+            
+            .hero, .services, .map-container, .contact-item, .service-card {
+                background-color: #1e1e1e;
+            }
+            
+            .hero-text p, .section-title p, .service-card p, .contact-item p {
+                color: #b0b0b0;
+            }
+            
+            .chatbot-window, .chatbot-input input {
+                background: #2d2d2d;
+                color: #e0e0e0;
+            }
+            
+            .bot-message .message-content {
+                background-color: #333333;
+                color: #e0e0e0;
+            }
+            
+            .chatbot-input input {
+                background: #333333;
+                border-color: #444444;
+            }
+            
+            .api-status {
+                background: #2d2d2d;
+                color: #e0e0e0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <div class="loading-text">Memuat Bengkel Motor Ali...</div>
+    </div>
+
+    <!-- API Status Indicator -->
+    <div class="api-status" id="apiStatus">
+        <span class="status-dot status-disconnected" id="statusDot"></span>
+        <span id="statusText">Menyambungkan ke AI...</span>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Header -->
+    <header id="mainHeader">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-motorcycle"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Bengkel Motor Ali</h1>
+                    <p>Layanan Profesional & Terpercaya</p>
+                </div>
+            </div>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home"><i class="fas fa-home"></i> Beranda</a></li>
+                    <li><a href="#services"><i class="fas fa-tools"></i> Layanan</a></li>
+                    <li><a href="#stats"><i class="fas fa-chart-line"></i> Statistik</a></li>
+                    <li><a href="#contact"><i class="fas fa-phone-alt"></i> Kontak</a></li>
+                </ul>
+            </nav>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>Layanan Bengkel Motor Terpercaya untuk Kebutuhan Anda</h2>
+                    <p>Bengkel Motor Ali (BMA) menyediakan layanan perbaikan, perawatan, dan suku cadang motor dengan kualitas terbaik. Didukung teknisi berpengalaman dan peralatan modern.</p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="cta-button">
+                            <i class="fas fa-phone-alt"></i> Hubungi Kami
+                        </a>
+                        <a href="#services" class="cta-button" style="background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue)); margin-left: 10px;">
+                            <i class="fas fa-eye"></i> Lihat Layanan
+                        </a>
+                    </div>
+                    
+                    <div class="hero-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4>Buka 7 Hari/Minggu</h4>
+                                <p>08:00 - 20:00 WIB</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div>
+                                <h4>Garansi 6 Bulan</h4>
+                                <p>Untuk sparepart original</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div>
+                                <h4>Rating 4.8/5</h4>
+                                <p>500+ pelanggan puas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1603575448878-868a20723f5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Bengkel Motor Ali">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" id="stats">
+        <div class="container">
+            <div class="section-title" style="color: white;">
+                <h2>BMA dalam Angka</h2>
+                <p>Bukti kualitas dan kepercayaan pelanggan</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="5000">0</div>
+                    <div class="stat-label">Motor Diperbaiki</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="98">0</div>
+                    <div class="stat-label">Kepuasan Pelanggan</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="15">0</div>
+                    <div class="stat-label">Tahun Pengalaman</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="24">0</div>
+                    <div class="stat-label">Jam Layanan Darurat</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Layanan Unggulan Kami</h2>
+                <p>Kami menyediakan berbagai layanan perbaikan dan perawatan motor dengan standar kualitas tertinggi.</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Perbaikan Mesin</h3>
+                    <p>Perbaikan mesin motor dengan teknisi ahli dan menggunakan alat modern untuk hasil maksimal.</p>
+                    <div class="service-price">Mulai Rp 150.000</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-oil-can"></i>
+                    </div>
+                    <h3>Ganti Oli & Servis</h3>
+                    <p>Layanan ganti oli dan servis berkala untuk menjaga performa motor tetap optimal.</p>
+                    <div class="service-price">Mulai Rp 75.000</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tire"></i>
+                    </div>
+                    <h3>Perbaikan Roda & Rem</h3>
+                    <p>Perbaikan sistem roda, ganti ban, dan perawatan rem untuk keselamatan berkendara.</p>
+                    <div class="service-price">Mulai Rp 80.000</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Perbaikan Kelistrikan</h3>
+                    <p>Servis sistem kelistrikan motor termasuk aki, lampu, dan kabel yang bermasalah.</p>
+                    <div class="service-price">Mulai Rp 50.000</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <h3>Cat & Body Repair</h3>
+                    <p>Layanan pengecatan dan perbaikan body motor untuk mengembalikan penampilan motor.</p>
+                    <div class="service-price">Mulai Rp 250.000</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Konsultasi Teknis</h3>
+                    <p>Konsultasi masalah teknis motor dan rekomendasi perawatan dari teknisi ahli kami.</p>
+                    <div class="service-price">GRATIS</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="#contact" class="cta-button">
+                    <i class="fas fa-calendar-alt"></i> Booking Sekarang
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Hubungi Kami</h2>
+                <p>Hubungi Bengkel Motor Ali untuk layanan terbaik dan konsultasi masalah motor Anda.</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Informasi Kontak</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Alamat Bengkel</h4>
+                            <p>Jl. Ahmad Yani No. 123, Jakarta Pusat 10110</p>
+                            <small>Dekat Monas, akses mudah dari mana saja</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Telepon & WhatsApp</h4>
+                            <p>(021) 1234-5678</p>
+                            <p>0812-3456-7890 (24 Jam)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email & Sosial Media</h4>
+                            <p>info@bengkelmotoralibma.com</p>
+                            <p>@bengkelmotoralibma</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Jam Operasional</h4>
+                            <p><strong>Senin - Minggu:</strong> 08:00 - 20:00 WIB</p>
+                            <p><strong>Layanan Darurat:</strong> 24 Jam</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-container">
+                    <h3>Lokasi Bengkel</h3>
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <p style="margin-top: 15px; font-weight: 500;">Bengkel Motor Ali</p>
+                        <p style="font-size: 14px; opacity: 0.8;">Jl. Ahmad Yani No. 123, Jakarta Pusat</p>
+                        <button class="cta-button" style="margin-top: 20px; padding: 10px 25px; font-size: 14px;">
+                            <i class="fas fa-map-marker-alt"></i> Buka di Google Maps
+                        </button>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <h4 style="margin-bottom: 15px;">Metode Pembayaran</h4>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="padding: 8px 15px; background: #f0f0f0; border-radius: 20px; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+                                <i class="fas fa-money-bill-wave" style="color: #4CAF50;"></i> Tunai
+                            </div>
+                            <div style="padding: 8px 15px; background: #f0f0f0; border-radius: 20px; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+                                <i class="fab fa-cc-visa" style="color: #1a1f71;"></i> Kartu Kredit
+                            </div>
+                            <div style="padding: 8px 15px; background: #f0f0f0; border-radius: 20px; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+                                <i class="fab fa-gopuram" style="color: #00a859;"></i> GoPay
+                            </div>
+                            <div style="padding: 8px 15px; background: #f0f0f0; border-radius: 20px; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+                                <i class="fab fa-cc-mastercard" style="color: #eb001b;"></i> OVO
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Bengkel Motor Ali</h1>
+                        <p>Servis Terbaik, Harga Terjangkau</p>
+                    </div>
+                </div>
+                
+                <div class="social-icons">
+                    <a href="#" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" title="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#home">Beranda</a>
+                    <a href="#services">Layanan</a>
+                    <a href="#contact">Kontak</a>
+                    <a href="#">Syarat & Ketentuan</a>
+                    <a href="#">Kebijakan Privasi</a>
+                    <a href="#">Karir</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; 2023 Bengkel Motor Ali (BMA). Semua hak dilindungi.</p>
+                    <p style="margin-top: 5px; font-size: 12px;">Dibuat dengan <i class="fas fa-heart" style="color: #ff5252;"></i> untuk komunitas motor Indonesia</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Container -->
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" id="chatbotToggle">
+            <i class="fas fa-comment-dots"></i>
+            <span class="badge" id="messageBadge" style="display: none;">!</span>
+        </button>
+        
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div>
+                    <h3>BMA Assistant</h3>
+                    <p>Asisten virtual Bengkel Motor Ali</p>
+                    <p style="font-size: 11px; opacity: 0.7;">Powered by AI • Online</p>
+                </div>
+                <button class="chatbot-close" id="chatbotClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        <strong>👋 Halo! Saya BMA Assistant</strong><br><br>
+                        Saya siap membantu Anda dengan:<br>
+                        • Booking servis<br>
+                        • Cek harga & promo<br>
+                        • Konsultasi teknis<br>
+                        • Info layanan & lokasi<br><br>
+                        Ada yang bisa saya bantu hari ini?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Ketik pesan Anda di sini..." autocomplete="off">
+                <button id="chatbotSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:5000';
+        let isApiConnected = false;
+        let unreadMessages = 0;
+        
+        // DOM Elements
+        const loadingScreen = document.getElementById('loadingScreen');
+        const mainHeader = document.getElementById('mainHeader');
+        const navMenu = document.getElementById('navMenu');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotClose = document.getElementById('chatbotClose');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotSend = document.getElementById('chatbotSend');
+        const apiStatus = document.getElementById('apiStatus');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const backToTop = document.getElementById('backToTop');
+        const messageBadge = document.getElementById('messageBadge');
+        const statNumbers = document.querySelectorAll('.stat-number');
+        
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 1500);
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                mainHeader.classList.add('scrolled');
+            } else {
+                mainHeader.classList.remove('scrolled');
+            }
+            
+            // Back to top button
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        // Back to top
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu on link click
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animate stats counter
+        function animateStats() {
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-count'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        stat.textContent = target + (stat.getAttribute('data-count') === '98' ? '%' : '+');
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(current) + (stat.getAttribute('data-count') === '98' ? '%' : '+');
+                    }
+                }, 20);
+            });
+        }
+        
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    
+                    // Animate stats when visible
+                    if (entry.target.id === 'stats') {
+                        animateStats();
+                    }
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+        
+        // Observe service cards with delay
+        document.querySelectorAll('.service-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+        
+        // Check API Connection
+        async function checkApiConnection() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/health`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                    signal: AbortSignal.timeout(5000)
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.model_loaded) {
+                        isApiConnected = true;
+                        statusDot.className = 'status-dot status-connected';
+                        statusText.textContent = 'AI Siap Membantu';
+                        apiStatus.style.background = 'linear-gradient(135deg, #e8f5e9, #c8e6c9)';
+                        apiStatus.style.color = '#2e7d32';
+                        return true;
+                    }
+                }
+                throw new Error('API tidak tersedia');
+            } catch (error) {
+                console.log('API check:', error.message);
+                isApiConnected = false;
+                statusDot.className = 'status-dot status-disconnected';
+                statusText.textContent = 'AI Offline';
+                apiStatus.style.background = 'linear-gradient(135deg, #ffebee, #ffcdd2)';
+                apiStatus.style.color = '#c62828';
+                return false;
+            }
+        }
+        
+        // Send message to API
+        async function sendMessageToAPI(message) {
+            if (!isApiConnected) {
+                return {
+                    success: false,
+                    bot_response: "⚠️ Koneksi AI sedang offline. Silakan hubungi kami langsung di WA: 0812-3456-7890 untuk bantuan cepat."
+                };
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message })
+                });
+                
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                console.error('Error mengirim pesan ke API:', error);
+                return {
+                    success: false,
+                    bot_response: "❌ Maaf, terjadi kesalahan sistem. Silakan coba lagi atau hubungi kami langsung."
+                };
+            }
+        }
+        
+        // Toggle chatbot window
+        chatbotToggle.addEventListener('click', () => {
+            chatbotWindow.classList.add('active');
+            unreadMessages = 0;
+            messageBadge.style.display = 'none';
+        });
+        
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.classList.remove('active');
+        });
+        
+        // Close chatbot with ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && chatbotWindow.classList.contains('active')) {
+                chatbotWindow.classList.remove('active');
+            }
+        });
+        
+        // Send message function
+        async function sendMessage() {
+            const message = chatbotInput.value.trim();
+            if (message === '') return;
+            
+            // Clear input and disable
+            chatbotInput.value = '';
+            chatbotInput.disabled = true;
+            chatbotSend.disabled = true;
+            
+            // Add user message
+            addMessage(message, 'user');
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            try {
+                // Simulate thinking delay
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                const apiResponse = await sendMessageToAPI(message);
+                removeTypingIndicator();
+                
+                if (apiResponse.success) {
+                    // Add slight delay for natural feel
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                    addMessage(apiResponse.bot_response, 'bot', apiResponse.confidence);
+                    
+                    // Add quick actions for follow-up
+                    if (apiResponse.tag && !['salam', 'terimakasih', 'tidak_mengerti'].includes(apiResponse.tag)) {
+                        setTimeout(() => addQuickActions(), 500);
+                    }
+                } else {
+                    addMessage(apiResponse.bot_response, 'bot');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                removeTypingIndicator();
+                addMessage("⚠️ Terjadi kesalahan. Silakan coba lagi.", 'bot');
+            } finally {
+                // Re-enable input
+                chatbotInput.disabled = false;
+                chatbotSend.disabled = false;
+                chatbotInput.focus();
+            }
+        }
+        
+        // Add message to chat
+        function addMessage(text, sender, confidence = null) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', `${sender}-message`);
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('message-content');
+            contentDiv.innerHTML = text;
+            
+            // Add confidence badge if available
+            if (sender === 'bot' && confidence !== null) {
+                const confidenceBadge = document.createElement('div');
+                confidenceBadge.classList.add('confidence-badge');
+                confidenceBadge.innerHTML = `
+                    <span>Akurasi:</span>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: ${confidence * 100}%"></div>
+                    </div>
+                    <span>${(confidence * 100).toFixed(1)}%</span>
+                `;
+                contentDiv.appendChild(confidenceBadge);
+            }
+            
+            messageDiv.appendChild(contentDiv);
+            chatbotMessages.appendChild(messageDiv);
+            
+            // Auto-scroll to bottom
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            
+            // Show notification badge if chat is closed
+            if (sender === 'bot' && !chatbotWindow.classList.contains('active')) {
+                unreadMessages++;
+                messageBadge.textContent = unreadMessages > 9 ? '9+' : unreadMessages;
+                messageBadge.style.display = 'flex';
+                chatbotToggle.style.animation = 'pulse 1s 3';
+            }
+        }
+        
+        // Show typing indicator
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.classList.add('message', 'bot-message', 'typing-indicator');
+            typingDiv.id = 'typingIndicator';
+            
+            for (let i = 0; i < 3; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('typing-dot');
+                typingDiv.appendChild(dot);
+            }
+            
+            chatbotMessages.appendChild(typingDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+        
+        // Remove typing indicator
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) typingIndicator.remove();
+        }
+        
+        // Add quick actions buttons
+        function addQuickActions() {
+            const quickActions = [
+                { icon: '💰', text: 'Cek Biaya Servis', question: 'Berapa biaya service ringan?' },
+                { icon: '📍', text: 'Lokasi Bengkel', question: 'Dimana alamat BMA?' },
+                { icon: '⏰', text: 'Jam Buka', question: 'Jam operasional bengkel?' },
+                { icon: '📅', text: 'Booking Servis', question: 'Cara booking service?' },
+                { icon: '🔧', text: 'Konsultasi Teknis', question: 'Bisa konsultasi masalah motor?' },
+                { icon: '🎁', text: 'Promo Terbaru', question: 'Ada promo apa sekarang?' }
+            ];
+            
+            // Shuffle and take 4
+            const shuffled = [...quickActions].sort(() => 0.5 - Math.random()).slice(0, 4);
+            
+            const quickActionsDiv = document.createElement('div');
+            quickActionsDiv.classList.add('quick-actions');
+            
+            shuffled.forEach(item => {
+                const btn = document.createElement('button');
+                btn.classList.add('quick-action-btn');
+                btn.innerHTML = `${item.icon} ${item.text}`;
+                btn.setAttribute('data-question', item.question);
+                btn.addEventListener('click', function() {
+                    chatbotInput.value = this.getAttribute('data-question');
+                    sendMessage();
+                });
+                quickActionsDiv.appendChild(btn);
+            });
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', 'bot-message');
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('message-content');
+            contentDiv.innerHTML = '<small>Mungkin Anda ingin tahu:</small>';
+            contentDiv.appendChild(quickActionsDiv);
+            
+            messageDiv.appendChild(contentDiv);
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+        
+        // Event listeners for chat
+        chatbotSend.addEventListener('click', sendMessage);
+        
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+        
+        // Initialize
+        window.addEventListener('DOMContentLoaded', async () => {
+            // Check API connection
+            await checkApiConnection();
+            
+            // Auto-hide API status
+            setTimeout(() => {
+                apiStatus.style.opacity = '0.7';
+            }, 5000);
+            
+            // Auto-open chat for first-time visitors
+            if (!localStorage.getItem('chatbotFirstVisit')) {
+                setTimeout(() => {
+                    chatbotWindow.classList.add('active');
+                    localStorage.setItem('chatbotFirstVisit', 'true');
+                    
+                    // Welcome message
+                    setTimeout(() => {
+                        // addMessage("👋 Selamat datang di Bengkel Motor Ali! Saya BMA Assistant. Silakan tanya apa saja tentang layanan kami. Coba klik pertanyaan cepat di bawah atau ketik langsung!", 'bot');
+                        addQuickActions();
+                    }, 800);
+                }, 3000);
+            }
+            
+            // Add floating animation to chatbot toggle
+            setInterval(() => {
+                if (!chatbotWindow.classList.contains('active')) {
+                    chatbotToggle.style.animation = 'float 3s ease-in-out infinite';
+                }
+            }, 5000);
+            
+            // Click outside to close chat
+            document.addEventListener('click', (e) => {
+                if (!chatbotWindow.contains(e.target) && 
+                    !chatbotToggle.contains(e.target) && 
+                    chatbotWindow.classList.contains('active')) {
+                    chatbotWindow.classList.remove('active');
+                }
+            });
+        });
+        
+        // Add CSS for service price
+        const style = document.createElement('style');
+        style.textContent = `
+            .service-price {
+                margin-top: 15px;
+                padding: 8px 15px;
+                background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(255, 87, 34, 0.1));
+                color: var(--accent-orange);
+                border-radius: 20px;
+                font-weight: 600;
+                font-size: 14px;
+                display: inline-block;
+            }
+            
+            .hero-buttons {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 30px;
+                flex-wrap: wrap;
+            }
+            
+            @media (max-width: 768px) {
+                .hero-buttons {
+                    justify-content: center;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
